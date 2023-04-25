@@ -15,8 +15,13 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
+#include "KS0108.h"
+#include "Tahoma11x13.h"
+#include "Tekton_Pro_Ext27x28.h"
 
 int USERID = 0;
+const char txt1[] PROGMEM = "Big";
+const char txt2[] PROGMEM = "Small";
 
 void setUp();
 void led();
@@ -25,7 +30,6 @@ bool checkValid(int grid[7][6], int colSel);
 
 
 ISR(PCINT8_vect) {
-	PINC |= 0x01;
 	led();
 }
 
@@ -33,7 +37,7 @@ ISR(PCINT8_vect) {
 
 int main()
 {	
-	//setUp();
+	setUp();
 	while(1) {
 		//led();
 	}
@@ -49,6 +53,30 @@ void setUp() {
 	PCMSK1 |= 0x01;						// PCINT18
 	
 	sei();								// enable interrupts
+	
+	// setup
+	GLCD_Setup();
+	GLCD_Clear();
+	
+	// Inverted mode
+	GLCD_InvertMode();
+	
+	// Print text # 1
+	GLCD_SetFont(Tekton_Pro_Ext27x28, 27, 28, GLCD_Merge);
+	GLCD_GotoXY(42, 1);
+	GLCD_PrintString_P(txt1);
+	
+	//Print text #2
+	GLCD_SetFont(Tahoma11x13, 11, 13, GLCD_Merge);
+	GLCD_GotoXY(48, 30);
+	GLCD_PrintString_P(txt2);
+	
+	// Draw outline
+	GLCD_DrawRoundRectangle(1, 1, 126, 62, 5, GLCD_Black);
+	
+	// Render screen
+	GLCD_Render();
+	
 }
 
 
