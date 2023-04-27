@@ -9,6 +9,7 @@
 #define F_CPU 16000000UL	// 16 MHz clock speed
 #endif
 
+#include <avr/pgmspace.h>
 #include <avr/io.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -29,9 +30,10 @@ bool check(int grid[7][6], int count, int locRow, int locCol);
 bool checkValid(int grid[7][6], int colSel);
 
 
-ISR(PCINT8_vect) {
+/*ISR(PCINT8_vect) {
 	led();
 }
+*/
 
 
 
@@ -40,19 +42,21 @@ int main()
 	setUp();
 	while(1) {
 		//led();
+		//setUp();
 	}
 	return 0;
+	
 }
 
 
 void setUp() {
-	cli();
-	DDRD = 0b00001100;					// port D, 2 and 3 are now output
-	DDRC |= 0x01;
-	PCICR |= 0x02;						// turn on port C
-	PCMSK1 |= 0x01;						// PCINT18
+	//cli();
+	//DDRD = 0b00001100;					// port D, 2 and 3 are now output
+	//DDRC |= 0x01;
+	//PCICR |= 0x02;						// turn on port C
+	//PCMSK1 |= 0x01;						// PCINT18
 	
-	sei();								// enable interrupts
+	//sei();								// enable interrupts
 	
 	// setup
 	GLCD_Setup();
@@ -75,8 +79,8 @@ void setUp() {
 	GLCD_DrawRoundRectangle(1, 1, 126, 62, 5, GLCD_Black);
 	
 	// Render screen
-	GLCD_Render();
-	
+	//GLCD_Render();
+
 }
 
 
