@@ -25,9 +25,9 @@ const char txt1[] PROGMEM = "Big";
 const char txt2[] PROGMEM = "Small";
 
 void setUp();
-void led();
-bool check(int grid[7][6], int count, int locRow, int locCol);
-bool checkValid(int grid[7][6], int colSel);
+//void led();
+//bool check(int grid[7][6], int count, int locRow, int locCol);
+//bool checkValid(int grid[7][6], int colSel);
 
 
 /*ISR(PCINT8_vect) {
@@ -79,7 +79,9 @@ void setUp() {
 	GLCD_DrawRoundRectangle(1, 1, 126, 62, 5, GLCD_Black);
 	
 	// Render screen
-	//GLCD_Render();
+	GLCD_Render();
+	
+	while (1 == 1);
 
 }
 
@@ -87,6 +89,7 @@ void setUp() {
 /* This function is called when one user finished his/her turn, 
 	and then turn on the led of the other user, which indicates 
 	that user's turn. */
+/*
 void led() {
 	unsigned char tmp;
 	if (USERID == 0) {
@@ -116,6 +119,7 @@ void led() {
 	}
 
 }
+*/
 
 /*	
 	row
@@ -136,6 +140,7 @@ void led() {
 
 /* Check if there exists connected 4 checkers in the grid, locRow is which row user places at,
 	locCol is which column user places at. Return true if exist a winner, false otherwise.  */
+/*
 bool check(int grid[7][6], int count, int locRow, int locCol) {
 	// if less than 8 moves, there's no winner
 	if (count <= 7) {
@@ -223,14 +228,15 @@ bool check(int grid[7][6], int count, int locRow, int locCol) {
 	
 	return false;
 }
+*/
 
 /* check if user is selecting a valid column, which means that column is not full */
+/*
 bool checkValid(int grid[7][6], int colSel){
 	if (grid[0][colSel] == 0) {
 		return true;
 	}
 	return false;
 }
-
-
+*/
 
